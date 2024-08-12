@@ -4,7 +4,7 @@ import { Cart, List, Search, X } from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
 
 
-function Header() {
+function Header({login}) {
   const [carrinho, setcarrinho] = useState(['tennis,carrinho']);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -20,7 +20,7 @@ function Header() {
         {/* Logo e Botão de Menu */}
         <div className="flex items-center">
           {/* Botão para abrir o menu em dispositivos móveis */}
-          <button id="menu-btn" onClick={toggleSidebar} className="text-xl mr-4 lg:hidden bg-white-700 text-pink-500 p-2 rounded">
+          <button id="menu-btn" onClick={toggleSidebar} className={`text-xl mr-4 lg:hidden bg-white-700 text-pink-500 p-2 rounded ${login && 'invisible'}`}>
             <List />
           </button>
           {/* Link para a página inicial com o logo */}
@@ -34,15 +34,15 @@ function Header() {
 
         {/* Input de Pesquisa (somente em telas maiores que 700px) */}
         <div id="searchInput"
-          className="hidden sm:flex flex-row w-full items-center justify-center mx-4 rounded-md border border-slate-200 bg-slate-200 focus-within:border-red-600 focus-within:text-red-600">
+          className={`hidden sm:flex flex-row w-full items-center justify-center mx-4 rounded-md border border-slate-200 bg-slate-200 focus-within:border-red-600 focus-within:text-red-600 ${login && 'invisible'}`}>
           <input
             className="w-full p-2 mx-4 border-transparent rounded-md bg-slate-200 focus:outline-none text-black"
             placeholder="Pesquisar produto..." />
           <Search className='mr-5'/>
         </div>
-        <Search className='block sm:hidden text-slate-500 hover:text-pink-500'/>
+        <Search className={`block sm:hidden text-slate-500 hover:text-pink-500 ${login && ' invisible'}`}/>
         {/* Botões */}
-        <div className="flex items-center space-x-4">
+        <div className={`flex items-center space-x-4 ${login && 'invisible'}`}>
           {/* Link para cadastro (somente em telas grandes) */}
           <a href="#" className="text-pink-500 w-[100px] hidden lg:block">Cadastre-se</a>
           {/* Botão de entrar (somente em telas grandes) */}
@@ -96,7 +96,7 @@ function Header() {
        id="sidebar" 
        className={`fixed inset-y-20 left-0 transform lg:hidden transition-transform bg-white duration-300 w-64
        h-screen flex flex-col z-40 space-y-2 mt-4 px-4 ${isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}>
+        } ${login && 'invisible'}`}>
         <div className='flex flex-col'>
           <div className='flex flex-row justify-between items-center mb-5'>
             <p className='text-xl font-semibold text-center' >Paginas</p>
@@ -123,15 +123,15 @@ function Header() {
         </div>
       </div>
 
-      {/* Links de navegação para dispositivos grandes */}
-      <div className="flex flex-row gap-5 text-lg font-semibold text-black">
+      {/* Links de navegação para dispositivos grandes */}      
+      {!login && <div className="flex flex-row gap-5 text-lg font-semibold text-black">
         <div className="space-x-4 hidden lg:block">
           <Link className="hover:text-pink-500 hover:underline hover:underline-offset-8" to="/Home">Home</Link>
           <Link className="hover:text-pink-500 hover:underline hover:underline-offset-8" to="/Lista-Produtos">Produtos</Link>
           <Link className="hover:text-pink-500 hover:underline hover:underline-offset-8"  to="/Categoria">Categorias</Link>
           <Link className="hover:text-pink-500 hover:underline hover:underline-offset-8">Meus Pedidos</Link>
         </div>
-      </div>
+      </div>}
      
    
     </header>
