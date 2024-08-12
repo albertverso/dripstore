@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import logo from '../assets/logo.png';
 import { Cart, List, Search, X } from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
+import {  useNavigate } from "react-router-dom";
 
 
 function Header({login}) {
@@ -10,6 +11,11 @@ function Header({login}) {
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
+  };
+
+  const navigate = useNavigate();
+  const handleButtonClick = () => {
+  navigate('/Login');
   };
 
   return (
@@ -44,9 +50,9 @@ function Header({login}) {
         {/* Botões */}
         <div className={`flex items-center space-x-4 ${login && 'invisible'}`}>
           {/* Link para cadastro (somente em telas grandes) */}
-          <a href="#" className="text-pink-500 w-[100px] hidden lg:block">Cadastre-se</a>
+          <Link to={"/Login"} className="text-gray-600 hover:text-pink-500 w-[100px] hidden lg:block underline">Cadastre-se</Link>
           {/* Botão de entrar (somente em telas grandes) */}
-          <a href="#" className="px-4 py-2 bg-pink-500 text-white rounded hidden lg:block">Entrar</a>
+          <button onClick={handleButtonClick} className="px-4 py-2 bg-pink-500 text-white rounded hidden lg:block">Entrar</button>
           {/* Ícone de pesquisa (somente em telas pequenas) */}
           <div id="searchIcon" className="custom-lg:hidden custom-sm:flex cursor-pointer">
             <i className="bi bi-search text-pink-500 text-xl"></i>
