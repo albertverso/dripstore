@@ -8,9 +8,23 @@ import {  useNavigate } from "react-router-dom";
 function Header({login}) {
   const [carrinho, setcarrinho] = useState(['tennis,carrinho']);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenLogin, setIsOpenLogin] = useState(false)
+
+  const email = localStorage.getItem('userEmail');
+
+  const handleLogout = () => {
+    // Remove o email do localStorage
+    localStorage.removeItem('userEmail');
+    // Redireciona o usuário para a página de login
+    navigate('/Home');
+  };
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
+  };
+
+  const toggleLogin = () => {
+    setIsOpenLogin(!isOpenLogin);
   };
 
   const navigate = useNavigate();
@@ -26,7 +40,7 @@ function Header({login}) {
         {/* Logo e Botão de Menu */}
         <div className="flex items-center">
           {/* Botão para abrir o menu em dispositivos móveis */}
-          <button id="menu-btn" onClick={toggleSidebar} className={`text-xl mr-4 lg:hidden bg-white-700 text-pink-500 p-2 rounded ${login && 'invisible'}`}>
+          <button  onClick={toggleSidebar} className={`text-xl mr-4 lg:hidden bg-white-700 text-pink-500 p-2 rounded ${login && 'invisible'}`}>
             <List />
           </button>
           {/* Link para a página inicial com o logo */}
@@ -40,9 +54,9 @@ function Header({login}) {
 
         {/* Input de Pesquisa (somente em telas maiores que 700px) */}
         <div id="searchInput"
-          className={`hidden sm:flex flex-row w-full items-center justify-center mx-4 rounded-md border border-slate-200 bg-slate-200 focus-within:border-red-600 focus-within:text-red-600 ${login && 'invisible'}`}>
+          className={`hidden sm:flex flex-row w-full items-center justify-center mx-4 rounded-md border border-slate-100 bg-slate-100 focus-within:border-red-600 focus-within:text-red-600 ${login && 'invisible'}`}>
           <input
-            className="w-full p-2 mx-4 border-transparent rounded-md bg-slate-200 focus:outline-none text-black"
+            className="w-full p-2 mx-4 border-transparent rounded-md bg-slate-100 focus:outline-none text-black"
             placeholder="Pesquisar produto..." />
           <Search className='mr-5'/>
         </div>
@@ -50,9 +64,15 @@ function Header({login}) {
         {/* Botões */}
         <div className={`flex items-center space-x-4 ${login && 'invisible'}`}>
           {/* Link para cadastro (somente em telas grandes) */}
-          <Link to={"/Login"} className="text-gray-600 hover:text-pink-500 w-[100px] hidden lg:block underline">Cadastre-se</Link>
-          {/* Botão de entrar (somente em telas grandes) */}
-          <button onClick={handleButtonClick} className="px-4 py-2 bg-pink-500 text-white rounded hidden lg:block">Entrar</button>
+
+          {email ? 
+            <button className='px-4 py-2 bg-pink-500 text-white rounded' onClick={toggleLogin}>
+              <p>{email}</p>
+            </button>
+            :
+            <><Link to={"/Login"} className="text-gray-600 hover:text-pink-500 w-[100px] hidden lg:block underline">Cadastre-se</Link><button onClick={handleButtonClick} className="px-4 py-2 bg-pink-500 text-white rounded hidden lg:block">Entrar</button></>
+          }
+          
           {/* Ícone de pesquisa (somente em telas pequenas) */}
           <div id="searchIcon" className="custom-lg:hidden custom-sm:flex cursor-pointer">
             <i className="bi bi-search text-pink-500 text-xl"></i>
@@ -78,7 +98,7 @@ function Header({login}) {
                 <span className="animate-ping absolute bottom-2 -right-3 h-full w-full rounded-full bg-pink-500 opacity-75"></span>
                 <div className='absolute bottom-2 -right-2 bg-pink-500 rounded-full text-xs h-4 w-4 text-center text-white' 
                 > 
-                  {carrinho.length}
+                  {carrinho.length - 1}
 
                 </div>
               </div>
@@ -99,10 +119,9 @@ function Header({login}) {
 
       {/* Menu Dropdown para dispositivos móveis */}      
       <div
-       id="sidebar" 
        className={`fixed inset-y-20 left-0 transform lg:hidden transition-transform bg-white duration-300 w-64
        h-screen flex flex-col z-40 space-y-2 mt-4 px-4 ${isOpen ? 'translate-x-0' : '-translate-x-full'
-        } ${login && 'invisible'}`}>
+        }`}>
         <div className='flex flex-col'>
           <div className='flex flex-row justify-between items-center mb-5'>
             <p className='text-xl font-semibold text-center' >Paginas</p>
@@ -128,6 +147,27 @@ function Header({login}) {
           </div>
         </div>
       </div>
+
+      {/* Menu Dropdown para dispositivos móveis */}      
+      {email && 
+      <div
+       className={`fixed top-0 right-0 transform transition-transform bg-white rounded-md duration-300 flex flex-col z-40 space-y-2 px-4 ${isOpenLogin ? 'translate-y-0' : '-translate-y-full'}`}>
+        <div className='flex flex-col p-2'>
+          <div className='flex flex-row justify-between items-center mb-5'>
+            <p className='text-xl font-bold text-center text-pink-600' >Usuário</p>
+            <button
+              id="close-btn"
+              className="flex z-50 rounded focus:outline-none hover:text-pink-600"
+              onClick={toggleLogin}
+            >
+              <X size={22}/>
+            </button>
+          </div>
+          <p className='text-pink-600 font-bold'>{email}</p>
+          <button className='bg-pink-600 text-white font-bold rounded-md mt-5' onClick={handleLogout}>Sair</button>
+
+        </div>
+      </div>}
 
       {/* Links de navegação para dispositivos grandes */}      
       {!login && <div className="flex flex-row gap-5 text-lg font-semibold text-black">
