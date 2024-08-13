@@ -164,7 +164,7 @@ function Header({login}) {
             </button>
           </div>
           <p className='text-pink-600 font-bold'>{email}</p>
-          <button className='bg-pink-600 text-white font-bold rounded-md mt-5' onClick={handleLogout}>Sair</button>
+          <button className='bg-pink-600 text-white font-bold rounded-md mt-5' onClick={() =>{ handleLogout(), toggleLogin()}}>Sair</button>
 
         </div>
       </div>}
