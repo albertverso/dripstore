@@ -70,7 +70,10 @@ function Header({login}) {
               <p>{email}</p>
             </button>
             :
-            <><Link to={"/Login"} className="text-gray-600 hover:text-pink-500 w-[100px] hidden lg:block underline">Cadastre-se</Link><button onClick={handleButtonClick} className="px-4 py-2 bg-pink-500 text-white rounded hidden lg:block">Entrar</button></>
+            <>
+              <Link to={"/SighUp"} className="text-gray-600 hover:text-pink-500 w-[100px] hidden lg:block underline">Cadastre-se</Link>
+              <button onClick={handleButtonClick} className="px-4 py-2 bg-pink-500 text-white rounded hidden lg:block">Entrar</button>
+            </>
           }
           
           {/* Ícone de pesquisa (somente em telas pequenas) */}
@@ -175,7 +178,7 @@ function Header({login}) {
           <Link className="hover:text-pink-500 hover:underline hover:underline-offset-8" to="/Home">Home</Link>
           <Link className="hover:text-pink-500 hover:underline hover:underline-offset-8" to="/Lista-Produtos">Produtos</Link>
           <Link className="hover:text-pink-500 hover:underline hover:underline-offset-8"  to="/Categoria">Categorias</Link>
-          <Link className="hover:text-pink-500 hover:underline hover:underline-offset-8">Meus Pedidos</Link>
+          <Link className="hover:text-pink-500 hover:underline hover:underline-offset-8" to="/Meus-Pedidos">Meus Pedidos</Link>
         </div>
       </div>}
      
