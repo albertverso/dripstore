@@ -66,17 +66,6 @@ export default function SighUp() {
                                     />
                                 </div>
                                  <div className='flex flex-col gap-4'>
-                                    <label className='font-bold'>Email *</label>
-                                    <input 
-                                        className='focus:outline-pink-600 text-black bg-slate-200 p-2 rounded-md' 
-                                        type="email" 
-                                        placeholder="Email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        required 
-                                    />
-                                </div>
-                                 <div className='flex flex-col gap-4'>
                                     <label className='font-bold'>Celular *</label>
                                     <input 
                                         className='focus:outline-pink-600 text-black bg-slate-200 p-2 rounded-md' 
@@ -88,7 +77,18 @@ export default function SighUp() {
                                     />
                                 </div>
                                 <div className='flex flex-col gap-4'>
-                                    <label className='font-bold'>Login *</label>
+                                    <label className='font-bold'>Email *</label>
+                                    <input 
+                                        className='focus:outline-pink-600 text-black bg-slate-200 p-2 rounded-md' 
+                                        type="email" 
+                                        placeholder="Email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        required 
+                                    />
+                                </div>
+                                <div className='flex flex-col gap-4'>
+                                    <label className='font-bold'>Senha *</label>
                                     <input 
                                         className='focus:outline-pink-600 text-black bg-slate-200 p-2 rounded-md' 
                                         type="email" 

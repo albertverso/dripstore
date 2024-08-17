@@ -18,7 +18,7 @@ export default function Section({children, title, titleCenter, btnTitle, btn}) {
                 </div>
                 <div
                     onClick={handleButtonClick}
-                    className="flex flex-row text-sm sm:text-base items-center gap-2 hover:text-pink-500 cursor-pointer">
+                    className="flex flex-row text-sm sm:text-base items-center gap-2 hover:text-pink-600 cursor-pointer">
                     <p>{btnTitle}</p>
                     <div>
                         {btn}

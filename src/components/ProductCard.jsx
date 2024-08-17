@@ -8,11 +8,11 @@ export default function ProductCard ({desconto, img, preco, precoDesconto, marca
                     <p><span>{desconto}</span>% OFF</p>
                 </div>
                 <div
-                    className="flex items-center justify-center h-[134px] w-[160px] sm:w-[248px] mr-8 mt-10 absolute sm:mt-5 sm:relative">
+                    className="flex items-center justify-center h-[134px] w-[120px] sm:w-[248px] mr-8 mt-10 absolute sm:mt-5 sm:relative">
                     <img
                         src={img ? img : 'https://placehold.co/254x254'}
                         alt=""
-                        className="w-[254px] h-[254px] flex items-center" />
+                        className="flex items-center -rotate-[10deg]" />
                 </div>
             </div>
             <div className="flex flex-col">

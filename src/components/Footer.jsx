@@ -47,20 +47,20 @@ export default function Footer() {
                 <div className="flex flex-col gap-6">
                     <p className="text-2xl font-bold">Informação</p>
                     <nav className="flex flex-col gap-2">
-                        <p className="hover:text-pink-500 cursor-pointer">
+                        <p className="hover:text-pink-600 cursor-pointer">
                             Sobre Drip Store
                         </p>
-                        <p className="hover:text-pink-500 cursor-pointer">
+                        <p className="hover:text-pink-600 cursor-pointer">
                             Segurança
                         </p>
-                        <p className="hover:text-pink-500 cursor-pointer">
+                        <p className="hover:text-pink-600 cursor-pointer">
                             Wishilist
                         </p>
-                        <p className="hover:text-pink-500 cursor-pointer">Blog</p>
-                        <p className="hover:text-pink-500 cursor-pointer">
+                        <p className="hover:text-pink-600 cursor-pointer">Blog</p>
+                        <p className="hover:text-pink-600 cursor-pointer">
                             Trabalhe conosco
                         </p>
-                        <p className="hover:text-pink-500 cursor-pointer">
+                        <p className="hover:text-pink-600 cursor-pointer">
                             Meus pedidos
                         </p>
                     </nav>
@@ -68,23 +68,23 @@ export default function Footer() {
                 <div className="flex flex-col gap-5">
                     <p className="text-2xl font-bold">Categorias</p>
                     <nav className="flex flex-col gap-2">
-                        <p className="hover:text-pink-500 cursor-pointer">Camisas</p>
-                        <p className="hover:text-pink-500 cursor-pointer">Calças</p>
-                        <p className="hover:text-pink-500 cursor-pointer">Bonés</p>
-                        <p className="hover:text-pink-500 cursor-pointer">
+                        <p className="hover:text-pink-600 cursor-pointer">Camisas</p>
+                        <p className="hover:text-pink-600 cursor-pointer">Calças</p>
+                        <p className="hover:text-pink-600 cursor-pointer">Bonés</p>
+                        <p className="hover:text-pink-600 cursor-pointer">
                             Headphones
                         </p>
-                        <p className="hover:text-pink-500 cursor-pointer">Tênis</p>
+                        <p className="hover:text-pink-600 cursor-pointer">Tênis</p>
                     </nav>
                 </div>
                 <div className="flex flex-col gap-5 col-span-2 md:col-span-1">
                     <p className="text-2xl font-bold">Contato</p>
                     <address className="flex flex-col gap-2">
-                        <p className="hover:text-pink-500 cursor-pointer">
+                        <p className="hover:text-pink-600 cursor-pointer">
                             Av. Santos Dumont, 1510 - 1 andar - Aldeota,
                             Fortaleza - CE, 60150-161
                         </p>
-                        <p className="hover:text-pink-500 cursor-pointer">
+                        <p className="hover:text-pink-600 cursor-pointer">
                             (85) 3051-3411
                         </p>
                     </address>

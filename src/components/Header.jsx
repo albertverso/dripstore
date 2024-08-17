@@ -40,7 +40,7 @@ function Header({login}) {
         {/* Logo e Botão de Menu */}
         <div className="flex items-center">
           {/* Botão para abrir o menu em dispositivos móveis */}
-          <button  onClick={toggleSidebar} className={`text-xl mr-4 lg:hidden bg-white-700 text-pink-500 p-2 rounded ${login && 'invisible'}`}>
+          <button  onClick={toggleSidebar} className={`text-xl mr-4 lg:hidden bg-white-700 text-pink-600 p-2 rounded ${login && 'invisible'}`}>
             <List />
           </button>
           {/* Link para a página inicial com o logo */}
@@ -60,25 +60,25 @@ function Header({login}) {
             placeholder="Pesquisar produto..." />
           <Search className='mr-5'/>
         </div>
-        <Search className={`block sm:hidden text-slate-500 hover:text-pink-500 ${login && ' invisible'}`}/>
+        <Search className={`block sm:hidden text-slate-500 hover:text-pink-600 ${login && ' invisible'}`}/>
         {/* Botões */}
         <div className={`flex items-center space-x-4 ${login && 'invisible'}`}>
           {/* Link para cadastro (somente em telas grandes) */}
 
           {email ? 
-            <button className='px-4 py-2 bg-pink-500 text-white rounded' onClick={toggleLogin}>
+            <button className='px-4 py-2 bg-pink-600 text-white rounded' onClick={toggleLogin}>
               <p>{email}</p>
             </button>
             :
             <>
-              <Link to={"/SighUp"} className="text-gray-600 hover:text-pink-500 w-[100px] hidden lg:block underline">Cadastre-se</Link>
-              <button onClick={handleButtonClick} className="px-4 py-2 bg-pink-500 text-white rounded hidden lg:block">Entrar</button>
+              <Link to={"/SighUp"} className="text-gray-600 hover:text-pink-600 w-[100px] hidden lg:block underline">Cadastre-se</Link>
+              <button onClick={handleButtonClick} className="px-4 py-2 bg-pink-600 hover:bg-pink-900 text-white rounded hidden lg:block">Entrar</button>
             </>
           }
           
           {/* Ícone de pesquisa (somente em telas pequenas) */}
           <div id="searchIcon" className="custom-lg:hidden custom-sm:flex cursor-pointer">
-            <i className="bi bi-search text-pink-500 text-xl"></i>
+            <i className="bi bi-search text-pink-600 text-xl"></i>
           </div>
           {/* Ícone de carrinho */}
           <div
@@ -89,7 +89,7 @@ function Header({login}) {
             // }}
           >
             <Cart
-              className='text-pink-500 text-xl'
+              className='text-pink-600 text-xl'
 
               onClick={() => {
                 setcarrinho([...carrinho, "Novo Item"]);
@@ -98,8 +98,8 @@ function Header({login}) {
             />
             {
               carrinho.length === 1 ? '' : <div>
-                <span className="animate-ping absolute bottom-2 -right-3 h-full w-full rounded-full bg-pink-500 opacity-75"></span>
-                <div className='absolute bottom-2 -right-2 bg-pink-500 rounded-full text-xs h-4 w-4 text-center text-white' 
+                <span className="animate-ping absolute bottom-2 -right-3 h-full w-full rounded-full bg-pink-600 opacity-75"></span>
+                <div className='absolute bottom-2 -right-2 bg-pink-600 rounded-full text-xs h-4 w-4 text-center text-white' 
                 > 
                   {carrinho.length - 1}
 
@@ -137,16 +137,16 @@ function Header({login}) {
             </button>
           </div>
           <ul className="flex flex-col space-y-2 text-black font-semibold">
-            <li><a href="#" className="hover:text-pink-500">Home</a></li>
-            <li><a href="#" className="hover:text-pink-500">Produtos</a></li>
-            <li><a href="#" className="hover:text-pink-500">Categorias</a></li>
-            <li><a href="#" className="hover:text-pink-500">Meus Pedidos</a></li>
+            <li><a href="#" className="hover:text-pink-600">Home</a></li>
+            <li><a href="#" className="hover:text-pink-600">Produtos</a></li>
+            <li><a href="#" className="hover:text-pink-600">Categorias</a></li>
+            <li><a href="#" className="hover:text-pink-600">Meus Pedidos</a></li>
           </ul>
           <div className="flex flex-col items-center mt-64 gap-5 border-t-[1px] border-slate-500">
             {/* Botão de entrar */}
-            <button href="#" className="px-4 py-2 w-36 bg-pink-500 text-white rounded mt-5">Entrar</button>
+            <button href="#" className="px-4 py-2 w-36 bg-pink-600 text-white rounded mt-5">Entrar</button>
             {/* Link para cadastro */}
-            <a href="#" className="text-pink-500">Cadastre-se</a>
+            <a href="#" className="text-pink-600">Cadastre-se</a>
           </div>
         </div>
       </div>
@@ -175,10 +175,10 @@ function Header({login}) {
       {/* Links de navegação para dispositivos grandes */}      
       {!login && <div className="flex flex-row gap-5 text-lg font-semibold text-black">
         <div className="space-x-4 hidden lg:block">
-          <Link className="hover:text-pink-500 hover:underline hover:underline-offset-8" to="/Home">Home</Link>
-          <Link className="hover:text-pink-500 hover:underline hover:underline-offset-8" to="/Lista-Produtos">Produtos</Link>
-          <Link className="hover:text-pink-500 hover:underline hover:underline-offset-8"  to="/Categoria">Categorias</Link>
-          <Link className="hover:text-pink-500 hover:underline hover:underline-offset-8" to="/Meus-Pedidos">Meus Pedidos</Link>
+          <Link className="hover:text-pink-600 hover:underline hover:underline-offset-8" to="/Home">Home</Link>
+          <Link className="hover:text-pink-600 hover:underline hover:underline-offset-8" to="/Lista-Produtos">Produtos</Link>
+          <Link className="hover:text-pink-600 hover:underline hover:underline-offset-8"  to="/Categoria">Categorias</Link>
+          <Link className="hover:text-pink-600 hover:underline hover:underline-offset-8" to="/Meus-Pedidos">Meus Pedidos</Link>
         </div>
       </div>}
      

@@ -10,11 +10,14 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const apiUrl = import.meta.env.VITE_API;
 
     const handleLogin = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('http://localhost:10000/v1/user/login', {
+            console.log(apiUrl+'/v1/user/login')
+
+            const response = await fetch(apiUrl+'/v1/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -37,7 +40,7 @@ export default function Login() {
             setErrorMessage('Ocorreu um erro ao tentar fazer login. Tente novamente mais tarde.');
         }
     };
-
+    
     return(
         <div className="bg-gradiente-login flex flex-col px-4 sm:px-[20px] md:px-[50px] lg:px-[70px] xl:px-[100px]">
             <div className='flex flex-row pt-10 gap-16 mt-10'>
