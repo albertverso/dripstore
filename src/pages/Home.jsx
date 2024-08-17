@@ -47,7 +47,7 @@ export default function Home() {
 
           <div
             className="flex flex-col gap-2 lg:py-4 items-center text-center lg:text-left lg:items-start w-full">
-            <p className="text-xl text-pink-500 font-bold">
+            <p className="text-xl text-pink-600 font-bold">
               Oferta especial
             </p>
 
@@ -63,7 +63,7 @@ export default function Home() {
             </p>
             <div className="w-full px-12 sm:px-0">
               <button
-                className="bg-pink-500  text-white font-bold py-2 rounded hover:bg-pink-900  w-full sm:w-[250px]">
+                className="bg-pink-600  text-white font-bold py-2 rounded hover:bg-pink-900  w-full sm:w-[250px]">
                 Ver Ofertas
               </button>
             </div>

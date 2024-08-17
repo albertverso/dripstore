@@ -1,5 +1,5 @@
 import ProductCard from "./ProductCard";
-import tenis from '../assets/tenis-produtos.svg'
+import tenis from '../assets/TenisProduto.png'
 
 export default function ProductListing({details}) {
     return(
