@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '../assets/logo.png';
 import { Cart, List, Search, X } from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
 import {  useNavigate } from "react-router-dom";
+import { getEmailFromToken, isTokenExpired, logout } from '../services/authService';
 
 
 function Header({login}) {
@@ -10,11 +11,17 @@ function Header({login}) {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenLogin, setIsOpenLogin] = useState(false)
 
-  const email = localStorage.getItem('userEmail');
+  const email = getEmailFromToken()
+
+  useEffect(() => {
+    if (isTokenExpired()) {
+      logout();
+    }
+  }, []);
 
   const handleLogout = () => {
     // Remove o email do localStorage
-    localStorage.removeItem('userEmail');
+    logout();
     // Redireciona o usuário para a página de login
     navigate('/Home');
   };

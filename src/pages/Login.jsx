@@ -4,40 +4,33 @@ import '../style/Login.css'
 import tenis from '../assets/loginTenis.svg';
 import gmail from '../assets/gmail.svg'
 import face from '../assets/faceColor.svg'
+import { ArrowClockwise } from 'react-bootstrap-icons';
+import { authLogin, isAuthenticated } from '../services/authService';
 
 export default function Login() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const apiUrl = import.meta.env.VITE_API || 'http://localhost:10000';
+    const [loading, setLoading] = useState(false);
 
     const handleLogin = async (event) => {
         event.preventDefault();
+        setLoading(true);
+        setErrorMessage('');
         try {
-            console.log(apiUrl+'/v1/user/login')
-
-            const response = await fetch(apiUrl+'/v1/user/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                console.log('Login successful:', data);
-                localStorage.setItem('userEmail', email);
-                navigate('/Home');
-                // Faça algo com os dados, como salvar o token de autenticação
-            } else {
-                const errorData = await response.json();
-                setErrorMessage(errorData.message || 'Falha no login. Verifique suas credenciais e tente novamente.');
-            }
+        const data = await authLogin(email, password);
+        if (isAuthenticated) {
+            console.log('Login bem-sucedido:', data);
+            localStorage.setItem('userEmail', email);
+            navigate('/Home');
+        } else {
+            setErrorMessage(data.message);
+        }
         } catch (error) {
-            console.error('Login failed:', error);
-            setErrorMessage('Ocorreu um erro ao tentar fazer login. Tente novamente mais tarde.');
+        setErrorMessage(error.message);
+        } finally {
+        setLoading(false);
         }
     };
     
@@ -76,10 +69,19 @@ export default function Login() {
                                 </div>
                             </div>
                             <a href="" className='underline'>Esqueci minha senha</a>
-                            <button type='submit' className='w-full mt-5 bg-pink-600 rounded-md p-2 font-bold text-white hover:bg-pink-900'>
-                                Acessar Conta
+                            <button type='submit' disabled={loading} className={`w-full mt-5 bg-pink-600 rounded-md p-2 font-bold text-white hover:bg-pink-900 ${loading && 'cursor-not-allowed'}`}>
+                            {loading ? (
+                                <span className="flex items-center text-light justify-center">
+                                    <div className="animate-spin text-light mr-3">
+                                        <ArrowClockwise/>
+                                    </div>
+                                    Carregando...
+                                </span>
+                                ) : (
+                                'Acessar Conta'
+                                )}
                             </button>
-                            {errorMessage && <p className='text-red-600'>{errorMessage}</p>}
+                            {errorMessage && <p className='mt-5 text-pink-600 text-lg text-center animate-pulse'>{errorMessage}</p>}
                         </form>
 
                         <div className='flex flex-row items-center justify-center gap-5'>
