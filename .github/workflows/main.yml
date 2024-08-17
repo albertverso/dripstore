@@ -2,7 +2,7 @@
 name: Deploy static content to Pages
 
 env:
-  VITE_API_KEY: ${{ secrets.API_KEY }}
+  VITE_API: ${{ secrets.VITE_API }}
   
 on:
   # Runs on pushes targeting the default branch
