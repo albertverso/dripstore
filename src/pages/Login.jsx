@@ -10,7 +10,7 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const apiUrl = import.meta.env.VITE_API;
+    const apiUrl = import.meta.env.VITE_API || 'http://localhost:10000';
 
     const handleLogin = async (event) => {
         event.preventDefault();
