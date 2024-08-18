@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import logo from '../assets/logo.png';
 import { Cart, List, Search, X } from 'react-bootstrap-icons';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {  useNavigate } from "react-router-dom";
 import { getEmailFromToken, isTokenExpired, logout } from '../services/authService';
 
@@ -10,8 +10,9 @@ function Header({login}) {
   const [carrinho, setcarrinho] = useState(['tennis,carrinho']);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenLogin, setIsOpenLogin] = useState(false)
-
+  const navigate = useNavigate();
   const email = getEmailFromToken()
+  const location = useLocation();
 
   useEffect(() => {
     if (isTokenExpired()) {
@@ -34,10 +35,12 @@ function Header({login}) {
     setIsOpenLogin(!isOpenLogin);
   };
 
-  const navigate = useNavigate();
+  
   const handleButtonClick = () => {
   navigate('/Login');
   };
+
+  
 
   return (
     // Header do site
@@ -73,7 +76,7 @@ function Header({login}) {
           {/* Link para cadastro (somente em telas grandes) */}
 
           {email ? 
-            <button className='px-4 py-2 bg-pink-600 text-white rounded' onClick={toggleLogin}>
+            <button className={`px-4 py-2 text-white rounded hover:bg-pink-900 ${isOpenLogin ? 'bg-pink-900' : 'bg-pink-600' }`} onClick={toggleLogin}>
               <p>{email}</p>
             </button>
             :
@@ -91,9 +94,6 @@ function Header({login}) {
           <div
             id="cartIcon"
             className="cursor-pointer relative"
-            // style={{
-            //   position: "relative"
-            // }}
           >
             <Cart
               className='text-pink-600 text-xl'
@@ -144,10 +144,10 @@ function Header({login}) {
             </button>
           </div>
           <ul className="flex flex-col space-y-2 text-black font-semibold">
-            <li><a href="#" className="hover:text-pink-600">Home</a></li>
-            <li><a href="#" className="hover:text-pink-600">Produtos</a></li>
-            <li><a href="#" className="hover:text-pink-600">Categorias</a></li>
-            <li><a href="#" className="hover:text-pink-600">Meus Pedidos</a></li>
+            <Link className={`hover:text-pink-600 ${location.pathname === '/Home' && 'text-pink-600'}`} to="/Home">Home</Link>
+            <Link className={`hover:text-pink-600 ${location.pathname === '/Lista-Produtos' && 'text-pink-600'}`} to="/Lista-Produtos">Produtos</Link>
+            <Link className={`hover:text-pink-600 ${location.pathname === '/Categoria' && 'text-pink-600'}`}  to="/Categoria">Categorias</Link>
+            <Link className={`hover:text-pink-600 ${location.pathname === '/Meus-Pedidos' && 'text-pink-600'}`} to="/Meus-Pedidos">Meus Pedidos</Link>
           </ul>
           <div className="flex flex-col items-center mt-64 gap-5 border-t-[1px] border-slate-500">
             {/* Botão de entrar */}
@@ -174,7 +174,7 @@ function Header({login}) {
             </button>
           </div>
           <p className='text-pink-600 font-bold'>{email}</p>
-          <button className='bg-pink-600 text-white font-bold rounded-md mt-5' onClick={() =>{ handleLogout(), toggleLogin()}}>Sair</button>
+          <button className='bg-pink-600 text-white font-bold rounded-md mt-5 hover:bg-pink-900' onClick={() =>{ handleLogout(), toggleLogin()}}>Sair</button>
 
         </div>
       </div>}
@@ -182,10 +182,10 @@ function Header({login}) {
       {/* Links de navegação para dispositivos grandes */}      
       {!login && <div className="flex flex-row gap-5 text-lg font-semibold text-black">
         <div className="space-x-4 hidden lg:block">
-          <Link className="hover:text-pink-600 hover:underline hover:underline-offset-8" to="/Home">Home</Link>
-          <Link className="hover:text-pink-600 hover:underline hover:underline-offset-8" to="/Lista-Produtos">Produtos</Link>
-          <Link className="hover:text-pink-600 hover:underline hover:underline-offset-8"  to="/Categoria">Categorias</Link>
-          <Link className="hover:text-pink-600 hover:underline hover:underline-offset-8" to="/Meus-Pedidos">Meus Pedidos</Link>
+          <Link className={`hover:text-pink-600 hover:border-b-4 hover:border-pink-600 ${location.pathname === '/Home' && 'text-pink-600 border-b-4 border-pink-600 '}`} to="/Home">Home</Link>
+          <Link className={`hover:text-pink-600 hover:border-b-4 hover:border-pink-600  ${location.pathname === '/Lista-Produtos' && 'text-pink-600 border-b-4 border-pink-600'}`} to="/Lista-Produtos">Produtos</Link>
+          <Link className={`hover:text-pink-600 hover:border-b-4 hover:border-pink-600  ${location.pathname === '/Categoria' && 'text-pink-600 border-b-4 border-pink-600'}`}  to="/Categoria">Categorias</Link>
+          <Link className={`hover:text-pink-600 hover:border-b-4 hover:border-pink-600  ${location.pathname === '/Meus-Pedidos' && 'text-pink-600 border-b-4 border-pink-600'}`} to="/Meus-Pedidos">Meus Pedidos</Link>
         </div>
       </div>}
      

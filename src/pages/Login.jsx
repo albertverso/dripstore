@@ -69,7 +69,7 @@ export default function Login() {
                                 </div>
                             </div>
                             <a href="" className='underline'>Esqueci minha senha</a>
-                            <button type='submit' disabled={loading} className={`w-full mt-5 bg-pink-600 rounded-md p-2 font-bold text-white hover:bg-pink-900 ${loading && 'cursor-not-allowed'}`}>
+                            <button type='submit' disabled={loading} className={`w-full mt-5 bg-pink-600 rounded-md p-2 font-bold text-white hover:bg-pink-900 ${loading && 'cursor-not-allowed bg-pink-900'}`}>
                             {loading ? (
                                 <span className="flex items-center text-light justify-center">
                                     <div className="animate-spin text-light mr-3">
