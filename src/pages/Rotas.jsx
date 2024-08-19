@@ -20,7 +20,6 @@ function Rotas() {
                     <Route path="/" element={<Navigate to="/Home" />}></Route>
                     <Route path="/Home" element={<Home></Home>}></Route>
                     <Route path="/Lista-Produtos" element={<ProductListingPage/>}></Route>
-                    <Route path="/Lista-Produtos" element={<ProductListingPage/>} ></Route>
                     <Route path="*" element={<PageNotFound></PageNotFound>} />
                     <Route path="/Login" element={<Login></Login>}></Route>
                     <Route path="/SighUp" element={<SighUp></SighUp>}></Route>

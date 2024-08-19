@@ -13,9 +13,9 @@ export default function ProductListingPage() {
                     <option value="nome-asc">Ordenar por: Nome(A-Z)</option>
                 </select>
             </div>
-            <div className="flex flex-row pb-24 justify-between">
+            <div className="flex flex-row pb-24 gap-20 justify-start">
                 <FilterGroup/>
-                <ProductListing details={true}/>
+                <ProductListing/>
             </div>
         </div>
     )

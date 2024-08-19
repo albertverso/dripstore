@@ -8,7 +8,6 @@ export default function FilterGroup() {
         setSelectedValue(event.target.value);
     };
 
-
     return (
         <section className="flex-col items-start justify-start w-[350px] px-10">
             <p className="text-xl font-semibold pb-5 pt-5 ml-3">Filtrar por</p>
