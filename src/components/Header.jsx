@@ -9,6 +9,7 @@ import { getEmailFromToken, isTokenExpired, logout } from '../services/authServi
 function Header({login}) {
   const [carrinho, setcarrinho] = useState(['tennis,carrinho']);
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenSearch, setIsOpenSearch] = useState(false);
   const [isOpenLogin, setIsOpenLogin] = useState(false)
   const navigate = useNavigate();
   const email = getEmailFromToken()
@@ -18,7 +19,17 @@ function Header({login}) {
     if (isTokenExpired()) {
       logout();
     }
-  }, []);
+    if (isOpen) {
+      document.body.classList.add('overflow-hidden');
+  } else {
+      document.body.classList.remove('overflow-hidden');
+  }
+
+  // Cleanup quando o componente for desmontado
+  return () => {
+      document.body.classList.remove('overflow-hidden');
+  };
+  }, [isOpen]);
 
   const handleLogout = () => {
     // Remove o email do localStorage
@@ -34,61 +45,87 @@ function Header({login}) {
   const toggleLogin = () => {
     setIsOpenLogin(!isOpenLogin);
   };
-
   
   const handleButtonClick = () => {
   navigate('/Login');
   };
 
-  
-
   return (
     // Header do site
-    <header id='' className="w-full px-4 sm:px-[20px] md:px-[50px] lg:px-[70px] xl:px-[100px] mb-5">
+    <header className={`w-full px-4 sm:px-[20px] md:px-[50px] lg:px-[70px] xl:px-[100px] mb-5`}>
+      {isOpen &&
+        <div
+          className={` translate-x-0 bg-black bg-opacity-50 fixed  left-0 transform lg:hidden transition-transform duration-300 w-full
+       h-screen flex flex-col z-40 space-y-2 mt-4 ${isOpen ? ' overflow-hidden' : '-translate-x-full'
+            } ${isOpenSearch ? 'inset-y-[100px]' : 'inset-y-12'}`}>
+          <div className='flex flex-col bg-white w-64 px-5 h-full'>
+            <div className='flex flex-row justify-between items-center mb-5 mt-5'>
+              <p className='text-xl font-semibold text-center' >Paginas</p>
+              <X size={28} className="text-gray-500 flex z-50 rounded focus:outline-none  hover:text-red-700" onClick={toggleSidebar}/>
+            </div>
+            <ul className="flex flex-col space-y-2 text-black font-semibold">
+              <Link className={`hover:text-pink-600 ${location.pathname === '/Home' && 'text-pink-600'}`} onClick={toggleSidebar} to="/Home">Home</Link>
+              <Link className={`hover:text-pink-600 ${location.pathname === '/Lista-Produtos' && 'text-pink-600'}`}  onClick={toggleSidebar} to="/Lista-Produtos">Produtos</Link>
+              <Link className={`hover:text-pink-600 ${location.pathname === '/Categoria' && 'text-pink-600'}`} onClick={toggleSidebar} to="/Categoria">Categorias</Link>
+              <Link className={`hover:text-pink-600 ${location.pathname === '/Meus-Pedidos' && 'text-pink-600'}`} onClick={toggleSidebar} to="/Meus-Pedidos">Meus Pedidos</Link>
+            </ul>
+            <div className="flex flex-col items-center mt-64 gap-5 border-t-[1px] border-slate-500">
+              {/* Botão de entrar */}
+              {email ? 
+                <button className={`px-4 py-2 mt-10 text-white rounded hover:bg-pink-900 ${isOpenLogin ? 'bg-pink-900' : 'bg-pink-600' }`} onClick={ () => {toggleLogin(), toggleSidebar()}}>
+                  <p>{email}</p>
+                </button>
+                :
+                <>
+                  <button onClick={() =>{handleButtonClick(), toggleSidebar()}} className="px-4 py-2 w-full sm:w-36 bg-pink-600 text-white rounded mt-5">Entrar</button>
+                  <Link to={"/Login"} onClick={() =>{toggleSidebar()}} state={{ loginRequested: true }} className="text-gray-600 hover:text-pink-600 underline">Cadastre-se</Link>
+                </>
+              }
+            </div>
+          </div>
+        </div>}
       {/* Barra de navegação */}
-      <nav className="flex items-center justify-between py-5 bg-white gap-5">
+      <nav className={`flex bg-white gap-5 ${login ? ' mt-5 justify-center lg:justify-start' : 'py-5 items-center justify-between'}`}>
         {/* Logo e Botão de Menu */}
         <div className="flex items-center">
           {/* Botão para abrir o menu em dispositivos móveis */}
-          <button  onClick={toggleSidebar} className={`text-xl mr-4 lg:hidden bg-white-700 text-pink-600 p-2 rounded ${login && 'invisible'}`}>
-            <List />
-          </button>
+            <List onClick={toggleSidebar} className={`text-[20px] sm:text-[40px] md:text-[50px] mr-4 lg:hidden bg-white-700  ${login && 'hidden'} ${isOpen ? 'text-pink-600' : 'text-slate-500'}`}/>
           {/* Link para a página inicial com o logo */}
-          <a href="#" className="flex items-center">
+          <Link to="/Home" className={`flex items-center cursor-pointer`}>
             <img src={logo}
               alt="Logo da Loja"
-              className="h-13 w-13 object-contain mr-2" />
+              className="w-32 sm:w-[180px] md:w-[280px] lg:w-[300px] mr-2" />
             {/* Logo da loja */}
-          </a>
+          </Link>
         </div>
 
         {/* Input de Pesquisa (somente em telas maiores que 700px) */}
-        <div id="searchInput"
-          className={`hidden sm:flex flex-row w-full items-center justify-center mx-4 rounded-md border border-slate-100 bg-slate-100 focus-within:border-red-600 focus-within:text-red-600 ${login && 'invisible'}`}>
-          <input
-            className="w-full p-2 mx-4 border-transparent rounded-md bg-slate-100 focus:outline-none text-black"
-            placeholder="Pesquisar produto..." />
-          <Search className='mr-5'/>
-        </div>
-        <Search className={`block sm:hidden text-slate-500 hover:text-pink-600 ${login && ' invisible'}`}/>
+        {!login &&
+          <div id="searchInput"
+            className={`hidden sm:flex flex-row w-full items-center justify-center mx-4 rounded-md border border-slate-100 bg-slate-100 focus-within:border-pink-600 focus-within:text-pink-600`}>
+            <input
+              className="w-full p-1 mx-4 border-transparent rounded-md bg-slate-100 focus:outline-none text-black"
+              placeholder="Pesquisar produto..." />
+            <Search className='mr-5'/>
+          </div>
+        }
         {/* Botões */}
-        <div className={`flex items-center space-x-4 ${login && 'invisible'}`}>
+        <div className={`flex items-center space-x-4 ${login && 'hidden'}`}>
           {/* Link para cadastro (somente em telas grandes) */}
 
           {email ? 
-            <button className={`px-4 py-2 text-white rounded hover:bg-pink-900 ${isOpenLogin ? 'bg-pink-900' : 'bg-pink-600' }`} onClick={toggleLogin}>
+            <button className={`hidden lg:block px-4 py-2 text-white rounded hover:bg-pink-900 ${isOpenLogin ? 'bg-pink-900' : 'bg-pink-600' }`} onClick={toggleLogin}>
               <p>{email}</p>
             </button>
             :
             <>
-              <Link to={"/SighUp"} className="text-gray-600 hover:text-pink-600 w-[100px] hidden lg:block underline">Cadastre-se</Link>
+              <Link to={"/Login"} state={{ loginRequested: true }} className="text-gray-600 hover:text-pink-600 w-[100px] hidden lg:block underline">Cadastre-se</Link>
               <button onClick={handleButtonClick} className="px-4 py-2 bg-pink-600 hover:bg-pink-900 text-white rounded hidden lg:block">Entrar</button>
             </>
           }
-          
           {/* Ícone de pesquisa (somente em telas pequenas) */}
           <div id="searchIcon" className="custom-lg:hidden custom-sm:flex cursor-pointer">
-            <i className="bi bi-search text-pink-600 text-xl"></i>
+          <Search className={`block sm:hidden hover:text-pink-600 ${login && ' hidden'} ${isOpenSearch ? 'text-pink-600' : 'text-slate-500'}`} onClick={()=> setIsOpenSearch(!isOpenSearch)}/>
           </div>
           {/* Ícone de carrinho */}
           <div
@@ -96,11 +133,9 @@ function Header({login}) {
             className="cursor-pointer relative"
           >
             <Cart
-              className='text-pink-600 text-xl'
-
+              className='text-slate-500 hover:text-pink-600 text-xl'
               onClick={() => {
                 setcarrinho([...carrinho, "Novo Item"]);
-
               }}
             />
             {
@@ -116,47 +151,6 @@ function Header({login}) {
           </div>
         </div>
       </nav>
-
-      {/* Input de Pesquisa para dispositivos móveis */}
-      <div 
-      id="searchInputMobile" 
-      className="hidden flex-col items-center w-full mt-4 px-4">
-        <input 
-        type="search" 
-        className="w-full max-w-lg p-2 border border-gray-300 rounded"
-         placeholder="Pesquisar produto..." />
-      </div>
-
-      {/* Menu Dropdown para dispositivos móveis */}      
-      <div
-       className={`fixed inset-y-20 left-0 transform lg:hidden transition-transform bg-white duration-300 w-64
-       h-screen flex flex-col z-40 space-y-2 mt-4 px-4 ${isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}>
-        <div className='flex flex-col'>
-          <div className='flex flex-row justify-between items-center mb-5'>
-            <p className='text-xl font-semibold text-center' >Paginas</p>
-            <button
-              id="close-btn"
-              className="flex z-50 rounded focus:outline-none pr-5 hover:text-red-700"
-              onClick={toggleSidebar}
-            >
-              <X size={22}/>
-            </button>
-          </div>
-          <ul className="flex flex-col space-y-2 text-black font-semibold">
-            <Link className={`hover:text-pink-600 ${location.pathname === '/Home' && 'text-pink-600'}`} to="/Home">Home</Link>
-            <Link className={`hover:text-pink-600 ${location.pathname === '/Lista-Produtos' && 'text-pink-600'}`} to="/Lista-Produtos">Produtos</Link>
-            <Link className={`hover:text-pink-600 ${location.pathname === '/Categoria' && 'text-pink-600'}`}  to="/Categoria">Categorias</Link>
-            <Link className={`hover:text-pink-600 ${location.pathname === '/Meus-Pedidos' && 'text-pink-600'}`} to="/Meus-Pedidos">Meus Pedidos</Link>
-          </ul>
-          <div className="flex flex-col items-center mt-64 gap-5 border-t-[1px] border-slate-500">
-            {/* Botão de entrar */}
-            <button href="#" className="px-4 py-2 w-36 bg-pink-600 text-white rounded mt-5">Entrar</button>
-            {/* Link para cadastro */}
-            <a href="#" className="text-pink-600">Cadastre-se</a>
-          </div>
-        </div>
-      </div>
 
       {/* Menu Dropdown para dispositivos móveis */}      
       {email && 
@@ -188,6 +182,17 @@ function Header({login}) {
           <Link className={`hover:text-pink-600 hover:border-b-4 hover:border-pink-600  ${location.pathname === '/Meus-Pedidos' && 'text-pink-600 border-b-4 border-pink-600'}`} to="/Meus-Pedidos">Meus Pedidos</Link>
         </div>
       </div>}
+
+      {isOpenSearch &&
+            <div
+              className={`flex sm:hidden flex-row w-full items-center justify-center rounded-md border border-slate-100 bg-slate-100 focus-within:border-pink-600 focus-within:text-pink-600`}>
+              <input
+                className="w-full p-2 mx-4 border-transparent rounded-md bg-slate-100 focus:outline-none text-black"
+                placeholder="Pesquisar produto..." />
+              <Search className='mr-5'/>
+            </div>
+        }
+
      
    
     </header>
