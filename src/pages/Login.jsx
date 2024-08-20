@@ -26,7 +26,6 @@ export default function Login() {
         try {
             const data = await authLogin(email, password);
             if (isAuthenticated) {
-                localStorage.setItem('userEmail', email);
                 navigate('/Home');
             } else {
                 setErrorMessage(data.message);

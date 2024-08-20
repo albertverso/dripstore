@@ -1,8 +1,8 @@
 import apiUrl from "./apiService";
 
-export const GetProduct = async () => {
+export const GetProduct = async (page, limit) => {
     try {
-        const response = await fetch(apiUrl+'/v1/product/search', {
+        const response = await fetch(apiUrl+`/v1/product/search?page=${page}&limit=${limit}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',

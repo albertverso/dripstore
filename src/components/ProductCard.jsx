@@ -1,18 +1,22 @@
+import { useLocation } from "react-router-dom";
+
 export default function ProductCard ({desconto, img, preco, precoDesconto, marca, categoria, genero}) {
+    const location = useLocation();
+
     return (
         <div className="flex flex-col">
             <div
-                className="flex flex-col w-full h-48 sm:h-64 bg-white overflow-hidden items-center relative hover:shadow-lg">
+                className="flex flex-col w-full h-52 sm:h-60 lg:h-72 bg-white overflow-hidden items-center relative hover:shadow-lg">
                 <div
                     className={`flex border-0 items-center justify-center rounded-full bg-lime-300 w-24 h-8 mt-4 ml-4 font-bold self-start ${!desconto && 'invisible'}`}>
                     <p><span>{desconto}</span>% OFF</p>
                 </div>
                 <div
-                    className="flex items-center justify-center h-[134px] w-[120px] sm:w-[120px] lg:w-[200px] mr-8 mt-10 absolute sm:mt-5 sm:relative">
+                    className={`flex items-center justify-center h-[134px] w-[120px] sm:w-[120px] lg:w-[230px]  mr-8 mt-10 absolute sm:mt-5 sm:relative -rotate-[30deg] ${ location.pathname === '/Lista-Produtos' ? 'xl:w-[280px]' : ''}`}>
                     <img
                         src={img ? img : 'https://placehold.co/254x254'}
                         alt=""
-                        className="flex items-center -rotate-[10deg]" />
+                        className="flex items-center" />
                 </div>
             </div>
             <div className="flex flex-col">
