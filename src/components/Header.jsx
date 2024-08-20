@@ -183,14 +183,16 @@ function Header({login}) {
         </div>
       </div>}
 
-      {isOpenSearch &&
+      {isOpenSearch && !(location.pathname ==='/Login') ?
             <div
-              className={`flex sm:hidden flex-row w-full items-center justify-center rounded-md border border-slate-100 bg-slate-100 focus-within:border-pink-600 focus-within:text-pink-600`}>
+              className={`flex sm:hidden flex-row w-full items-center justify-center rounded-md border border-slate-100 bg-slate-100 focus-within:border-pink-600 focus-within:text-pink-600 `}>
               <input
                 className="w-full p-2 mx-4 border-transparent rounded-md bg-slate-100 focus:outline-none text-black"
                 placeholder="Pesquisar produto..." />
               <Search className='mr-5'/>
             </div>
+            : 
+            ''
         }
 
      
