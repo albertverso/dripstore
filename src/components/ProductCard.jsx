@@ -14,7 +14,7 @@ export default function ProductCard ({desconto, img, preco, precoDesconto, marca
                 <div
                     className={`flex items-center justify-center h-[134px] w-[120px] sm:w-[120px] lg:w-[230px]  mr-8 mt-10 absolute sm:mt-5 sm:relative -rotate-[30deg] ${ location.pathname === '/Lista-Produtos' ? 'xl:w-[280px]' : ''}`}>
                     <img
-                        src={img ? img : 'https://placehold.co/254x254'}
+                        src={img ? `data:image/png;base64,${img}` : 'https://placehold.co/254x254'}
                         alt=""
                         className="flex items-center" />
                 </div>
